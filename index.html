@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio 21 de mayo</title>
+
+    <style>
+        body{
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 3%;
+            background-color: #f9f9f9;
+        }
+
+        h1{
+            text-align: center;
+            color: black;
+        }
+
+        label{
+            display: inline-block;
+            width: 14em;
+        }
+
+        input{
+            padding: 2%;
+            width: 90%;
+        }
+
+        .cards{
+            background-color: white;
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button{
+            padding: 10px;
+            width: 100%;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            margin-top: 1%;
+        }
+        
+        .container{
+            display: flex;
+            gap: 10px;
+            margin-top: 3%;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <h1>Ejercicios a realizar para el 21 05</h1>
+    
+    <div class="container">
+        <div class="cards">
+            <h2>Vehiculos</h2>
+            <p>
+                <label for="vTuristico">Vehículos Turísticos</label>
+                <input type="number" value="30" id="vTuristico">
+            </p>
+            <p>
+                <label for="vTerreno">Vehículos todo terreno</label>
+                <input type="number" value="10" id="vTerreno">
+            </p>
+            <button type="button" onclick="calularDepostio()">Calcular combustible</button>
+            <p id="combistibleTotal1"></p>
+            <p id="combistibleTotal2"></p>
+            <p id="combistibleTotal3"></p>
+        </div>
+        <!--Segundo ejercio-->
+        <div class="cards">
+            <h2>IF mayor</h2>
+            <form onchange="elegirMayor()">
+                <p>
+                    <label for="numero1">Primer número (A):</label>
+                    <input type="number" id="numero1">
+                </p>
+                <p>
+                    <label for="numero2">Segundo número (B):</label>
+                    <input type="number" id="numero2">
+                </p>
+            </form>
+            <p id="numeroMayor"></p>
+        </div>
+        <!--Tercer ejercio-->
+        <div class="cards">
+            <h2>Nivel de experiencia</h2>
+            <p>
+                <label for="nombre">Coloque su nombre</label>
+                <input type="text">
+            </p>
+            <form onchange="elegirNivel()">
+                <p>
+                    <label for="años">Años trabajando:</label>
+                    <input type="number" id="años" >
+                </p>
+            </form>
+            <p id="nivelExperiencia"></p>
+        </div>
+    </div>
+
+    <div class="cards">
+        <p>
+            <label for="palabra">Colocar una palabra:</label>
+            <input type="text" id="palabra">
+        </p>
+        <button type="button" onclick="verPalabra()">Ver si es bonita</button>
+        <p id="palabrita"></p>
+    </div>
+
+
+    <script>
+
+        //EJERCICIO COMBUSTIBLE
+        const VTURISTICO = document.getElementById("vTuristico");
+        const VTERRENO = document.getElementById("vTerreno");
+
+        function calularDepostio(){
+
+            
+            let vturistioFinal = Number(VTURISTICO.value);
+            let vterrenoFinal = Number(VTERRENO.value);
+
+            let vt = vturistioFinal*40
+            let vte = vterrenoFinal*60
+            let resultadoFinalDeposito = vt + vte;
+            
+            document.getElementById("combistibleTotal1").innerHTML = "Necesitas " + vt + "L para Turistas" 
+            document.getElementById("combistibleTotal2").innerHTML = "Necesitas " + vte + "L para Terreno" 
+            document.getElementById("combistibleTotal3").innerHTML = "Necesitas " + resultadoFinalDeposito + "L para todos" 
+        }
+
+        //EJERCICIO NUMERO MAYOR
+        const NUMERO1 = document.getElementById("numero1");
+        const NUMERO2 = document.getElementById("numero2");
+
+        function elegirMayor(){
+            let numeroFinal1 = Number(NUMERO1.value);
+            let numeroFinal2 = Number(NUMERO2.value);
+            let numeroMayor;
+
+            if (numeroFinal1>numeroFinal2){
+                numeroMayor = "El número mayor es: A"
+            }else{
+                numeroMayor = "El número mayor es: B"
+            }
+            
+            document.getElementById("numeroMayor").innerHTML = numeroMayor
+        }
+
+        //EJERCICIO años de experiencia
+        const AÑOS = document.getElementById("años");
+
+        function elegirNivel(){
+            let añitos = Number(AÑOS.value);
+            let nivelExperienciaFinal = ""
+
+            if (añitos<2){
+                nivelExperienciaFinal = "Nivel principiante";
+            } else if (2 <= añitos && añitos<= 4){
+                nivelExperienciaFinal = "Nivel intermedio";
+            } else if (4 < añitos && añitos<= 7){
+                nivelExperienciaFinal = "Nivel avanzado";
+            } else if (7 < añitos && añitos<= 10){
+                nivelExperienciaFinal = "Nivel experto";
+            } else {
+                nivelExperienciaFinal = "Nivel Gurú"
+            }
+
+            document.getElementById("nivelExperiencia").innerHTML = nivelExperienciaFinal;
+        }
+
+        //EJERCICIO final
+        const PALABRA = document.getElementById("palabra");
+
+        function verPalabra(){
+            let palabraFinal = PALABRA.value;
+            let palabraLongitud = palabraFinal.length;
+            let primeraLetra = palabraFinal.charAt(0)
+            let esBonita = palabraLongitud ==5 && (primeraLetra.toLowerCase() == "p" || primeraLetra.toLowerCase() == "h");
+
+            if(esBonita){
+                document.getElementById("palabrita").innerHTML = "La palabra es bonita"
+            }else {
+                document.getElementById("palabrita").innerHTML = "La palabra ta fea"
+            }
+            
+            console.log(palabraLongitud, primeraLetra)
+        }
+
+
+    </script>
+
+</body>
+</html>
